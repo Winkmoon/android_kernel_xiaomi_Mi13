@@ -250,6 +250,14 @@ jobs:
       - name: 构建内核
         run: |
           cd kernel_workspace/common
+          export KBUILD_BUILD_USER=XinRan♡
+          export KBUILD_BUILD_HOST=Bai     
+          for tool in clang clang++ llvm-ar llvm-nm llvm-objcopy llvm-objdump llvm-strip ld.lld; do
+          sudo ln -sf /usr/bin/${tool}-19 /usr/bin/${tool}
+          done   
+          clang --version | head -n1
+          llvm-ar --version | head -n1
+          ld.lld --version | head -n1
           make -j$(nproc --all) LLVM=-19 ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- CROSS_COMPILE_ARM32=arm-linux-gnuabeihf- CC=clang LD=ld.lld HOSTCC=clang HOSTLD=ld.lld O=out KCFLAGS+=-Wno-error gki_defconfig all
           echo "内核编译完成！"
           
