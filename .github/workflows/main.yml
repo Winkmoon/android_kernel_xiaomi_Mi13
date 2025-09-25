@@ -62,14 +62,8 @@ jobs:
         uses: easimon/maximize-build-space@master
         with:
          root-reserve-mb: 8192
-         temp-reserve-mb: 2048
+         temp-reserve-mb: 8192
          swap-size-mb: 10240
-         remove-dotnet: 'true'
-         remove-haskell: 'true'
-         remove-codeql: 'true'
-         clean: 'true'
-         remove-postgres: 'true'
-         remove-mysql: 'true'
     
 
       - name: 安装配置环境依赖
