@@ -278,15 +278,19 @@ jobs:
           git clone https://github.com/Winkmoon/AnyKernel3 --depth=1
           rm -rf ./AnyKernel3/.git
           cd AnyKernel3
-          cp ../common/out/arch/arm64/boot/Image ./Image
+          # 使用实际编译输出的路径（根据日志确认）
+          cp ../out/android13-5.15/dist/arch/arm64/boot/Image ./Image
+          # 检查镜像文件是否存在
           if [ ! -f ./Image ]; then
-            echo "未找到内核镜像文件，构建可能出错"
-            exit 1
+          echo "错误：未找到内核镜像文件！"
+          echo "尝试查找所有可能的Image文件："
+          find ../ -name "Image"
+          exit 1
           fi
           if [[ -n "${{ github.event.inputs.kernel_suffix }}" ]]; then
-            zip -r ../AnyKernel3_SukiSU_${{ env.KSUVER }}_${{ env.KERNEL_VERSION }}_${{ github.event.inputs.kernel_suffix }}.zip ./*
+          zip -r ../AnyKernel3_SukiSU_${{ env.KSUVER }}_${{ env.KERNEL_VERSION }}_${{ github.event.inputs.kernel_suffix }}.zip ./*
           else
-            zip -r ../AnyKernel3_SukiSU_${{ env.KSUVER }}_${{ env.KERNEL_VERSION }}_${{ env.KERNEL_NAME }}.zip ./*
+          zip -r ../AnyKernel3_SukiSU_${{ env.KSUVER }}_${{ env.KERNEL_VERSION }}_${{ env.KERNEL_NAME }}.zip ./*
           fi
 
       - name: 上传 ZIP 工件
