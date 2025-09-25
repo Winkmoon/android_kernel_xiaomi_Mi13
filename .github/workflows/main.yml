@@ -249,7 +249,7 @@ jobs:
            
       - name: 构建内核
         run: |
-          cd kernel_workspace\common
+          cd kernel_workspace/common
           make -j$(nproc --all) LLVM=-19 ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- CROSS_COMPILE_ARM32=arm-linux-gnuabeihf- CC=clang LD=ld.lld HOSTCC=clang HOSTLD=ld.lld O=out KCFLAGS+=-Wno-error gki_defconfig all
           echo "内核编译完成！"
           
