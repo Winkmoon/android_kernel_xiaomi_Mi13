@@ -279,7 +279,7 @@ jobs:
           rm -rf ./AnyKernel3/.git
           cd AnyKernel3
           # 使用实际编译输出的路径（根据日志确认）
-          cp ../common/out/android13-5.15/dist/arch/arm64/boot/Image ./Image
+          cp ../out/android13-5.15/dist/Image ./Image
           # 检查镜像文件是否存在
           if [ ! -f ./Image ]; then
           echo "错误：未找到内核镜像文件！"
