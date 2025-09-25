@@ -258,10 +258,17 @@ jobs:
            
       - name: 构建内核
         run: |
-          cd kernel_workspace/common
+          cd kernel_workspace
+          # 检查是否存在编译脚本
+          if [ ! -f "build/build.sh" ]; then
+          echo "找不到 build/build.sh 脚本，尝试从源码中获取"
+          # 如果不存在，尝试从安卓源码中同步编译脚本
+          repo sync build/ -j$(nproc --all)
+          fi
           export LTO=thin SYSTEM_DLKM_RE_SIGN=0 BUILD_SYSTEM_DLKM=0 KMI_SYMBOL_LIST_STRICT_MODE=0
           export KBUILD_BUILD_USER=XinRan♡
           export KBUILD_BUILD_HOST=Bai     
+          # 在 kernel_workspace 目录而不是 common 目录执行编译
           BUILD_CONFIG=common/build.config.gki.aarch64 build/build.sh || echo "完毕"
           echo "内核编译完成！"
           
